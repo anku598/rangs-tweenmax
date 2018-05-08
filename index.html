@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.5/css/swiper.min.css"> -->
+  <link rel="stylesheet" href="style.css">
+  <title>Rangs Slider</title>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo"><img src="img/logo.png"/></a>
+        <nav>
+          <ul class="navbar">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Industries</a></li>
+            <li><a href="#">Concerns</a></li>
+            <li><a href="#">Life at Rangs</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+    <div class="v-line"></div>
+ 
+  
+  <section class="section" id="slider">
+    <div class="slider">
+      <div class="slider__container">
+        <div class="slider__item slide-first">
+          <div class="slider__content custom-flex">
+            <div class="image first lslide1"></div>
+            
+            <div class="column">
+              <div class="split-img rtslide1"></div>
+              <div class="split-img rbslide1"></div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="slider__item slide-second">
+          <div class="slider__content custom-flex">
+            <div class="column">
+              <div class="split-img ltslide2"></div>
+              <div class="split-img lbslide2"></div>
+            </div>
+            <div class="image second rslide2"></div>
+          </div>
+        </div>
+
+        <div class="slider__item slide-third">
+            <div class="slider__content custom-flex">
+              <div class="image third lslide3"></div>
+              <div class="column">
+                <div class="split-img rtslide3"></div>
+                <div class="split-img rbslide3"></div>
+              </div> 
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.5/js/swiper.min.js"></script> -->
+  <script src="js/tweenslide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+  <script>
+    var slider = new TuinSlider('#slider', {
+      onLeave: function(index) {
+        // Tween timeline object
+        var tl = new TimelineLite();
+        
+        // Select elements in current slide, 
+        // if not the animation triggers for all elements
+        var items = document.querySelectorAll('.slider__item')
+        var item = items[index];
+        
+        // Animate title
+        var splitImg = item.querySelectorAll('.split-img');
+        
+        // First slide = 0
+        var first = item.querySelector('.first');
+        
+        // Second slide = 1
+        var second = item.querySelector('.second');
+        
+        // Third slide = 2
+        var third = item.querySelectorAll('.third');
+        
+        // Exit animations
+        if (index === 0) {
+          tl.staggerTo(splitImg, 0, {
+            // y: -100,
+            // opacity: 0,
+            // ease: Power3.easeOut
+          }, 0.1)
+          .to(first, 0.5, {
+            // x: 200,
+            // opacity: 0,
+            // ease: Power3.easeOut
+            
+          });
+          
+        }
+        
+        if (index === 1) {
+          tl.staggerTo(splitImg, 0, {
+            // y: 100,
+            // opacity: 0,
+            // ease: Power3.easeOut
+          }, 0.5)
+          .to(second, 0, {
+            // y: -100,
+            // opacity: 0
+          });
+          
+        }
+ 
+        if (index === 2) {
+          tl.staggerTo(splitImg, 0, {
+            // y: -100,
+            // opacity: 0,
+            // ease: Power3.easeOut
+          }, 0.5)
+          .to(third, 0, {
+            // x: 100,
+            // opacity: 0
+          });
+          
+        }
+        return tl;
+        
+      },
+      
+      afterLoad: function(index) {
+        // Tween timeline object
+        var tl = new TimelineLite();
+        
+        // Select elements in current slide, 
+        // if not the animation triggers for all elements
+        var items = document.querySelectorAll('.slider__item')
+        var item = items[index];
+        
+        // Animate title every slide item
+        var splitImg = item.querySelectorAll('.split-img');
+        
+        // Hide the content case click in between values dots
+        // By example you are slide one and click slide third
+        // this make hide the content in slide two
+        var content = item.querySelector('.slider__content');
+        TweenLite.set(content, {
+          visibility: 'visible'
+        });
+        
+        // First slide = 0
+        var first = item.querySelector('.first');
+        
+        // Second slide = 1
+        var second = item.querySelector('.second');
+        
+        // Third slide = 2
+        var third = item.querySelectorAll('.third');
+        
+        // Enter animations
+        if (index === 0) {
+          tl.staggerFromTo(splitImg, 1, {
+            y: 100,
+            opacity: 0,
+          }, {
+            y: 0,
+            opacity: 1,
+            ease: Power3.easeOut
+            
+          }, 0.2)
+          .fromTo(first, 1.25, {
+            x: 100,
+            opacity: 0,
+          }, {
+            x: 0,
+            opacity: 1,
+            ease: Power3.easeOut
+            
+          }, '-=0.6');
+          
+        }
+        
+        if (index === 1) {
+          tl
+          .staggerFromTo(splitImg, 0.8, {
+            y: 100,
+            opacity: 0,
+          }, {
+            y: 0,
+            opacity: 1,
+            ease: Power3.easeOut
+          }, 0.1).fromTo(second, 0, {
+            y: 100,
+            opacity: 0
+          }, {
+            y: 0,
+            opacity: 1
+          }, '-=0.6');
+          
+        }
+        
+        // if (index === 2) {
+        //   tl.staggerFromTo(splitImg, 0.8, {
+        //     y: 100,
+        //     opacity: 0,
+        //   }, {
+        //     y: 0,
+        //     opacity: 1,
+        //     ease: Power3.easeOut
+            
+        //   }, 0.5)
+        //   .staggerFromTo(third, 1.5, {
+        //     x: 100,
+        //     opacity: 0,
+        //   }, {
+        //     x: 0,
+        //     opacity: 1,
+        //     ease: Power3.easeOut  
+        //   }, 0.5); 
+        // }
+
+
+         if (index === 2) {
+          tl.staggerFromTo(splitImg, 1, {
+            y: 100,
+            opacity: 0,
+          }, {
+            y: 0,
+            opacity: 1,
+            ease: Power3.easeOut
+            
+          }, 0.2)
+          .fromTo(third, 1.25, {
+            x: 100,
+            opacity: 0,
+          }, {
+            x: 0,
+            opacity: 1,
+            ease: Power3.easeOut
+            
+          }, '-=0.6');
+        }
+
+        return tl;  
+      }
+    });
+
+    // var isScrolling = false;
+
+    // document.onwheel = function(event){
+
+    //   if (!isScrolling){
+    //     isScrolling = true;
+    //      if (event.deltaY > 0){
+    //       slider.moveToNext();
+    //     } else if (event.deltaY < 0) {
+    //       slider.moveToPrev();
+    //     };
+    //   }
+    // };
+  </script>
+</body>
+</html>
